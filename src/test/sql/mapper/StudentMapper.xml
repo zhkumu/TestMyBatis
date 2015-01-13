@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.sql.mapper.StudentMapper">
+
+	<insert id="addStudent" parameterType="student">
+		insert into
+		student(`name`,`remark`,`birthday`,`color`)values(#{name},#{remark},#{birthday},#{color})
+	</insert>
+
+	<select id="getStudent" resultType="student">
+		select * from student
+		<!-- <if test="id!=0"> where id=1 </if> -->
+
+		<!-- <choose> <when test="id==0"> where id=10 </when> <when test="id==1"> 
+			where id=11 </when> <otherwise> where id=12 </otherwise> </choose> -->
+
+		<!-- <where> <if test="id==0"> id=10 </if> <if test="id==1"> and id=11 
+			</if> <if test="id==3"> and id=12 </if> </where> -->
+
+
+		<trim prefix="where" prefixOverrides=" and | or">
+			<if test="id==0">
+				id=10
+			</if>
+			<if test="id==1">
+				id=11
+			</if>
+			<if test="id==3">
+				id=12
+			</if>
+		</trim>
+
+	</select>
+
+	<select id="getStudents" resultType="student">
+		select * from student
+		where id in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="getStudentByName" resultType="student">
+		<bind name="pattern" value="'%' + _parameter.name + '%'" />
+		SELECT * FROM student WHERE `name` LIKE #{pattern}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

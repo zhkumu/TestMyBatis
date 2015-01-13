@@ -1,0 +1,43 @@
+Caused by: java.sql.SQLException: Data truncated for column 'birthday' at row 1 
+数据类型不正确
+
+commit(true)和rollback(true)最好传true，避免造成事务泄露和锁超时
+
+mybatis日志
+mybatis默认情况下使用以下顺序查找日志系统
+SLF4J 
+Apache Commons Logging 
+Log4j 2 
+Log4j 
+JDK logging 
+也可以在配置文件里指定
+<settins>
+	<setting name="logImpl" value="[SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING ]" />
+	logImpl 
+</settings>
+或者使用代码指定
+org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
+org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+org.apache.ibatis.logging.LogFactory.useJdkLogging();
+org.apache.ibatis.logging.LogFactory.useCommonsLogging();
+org.apache.ibatis.logging.LogFactory.useStdOutLogging();
+
+mybatis的日志输出的信息有以下四种
+connection
+preparedstatement
+statement
+resultset
+
+mybatis的日志输出级别是DEBUG
+为了避免因为DEBUG级别输出过多的日志，可能通过指定对应的mapper文件（接口）来输出信息
+log4j.logger.test.api.mapper=TRACE,R （重新指定日志级别以及日志输入格式）
+log4j.additivity.test.api.mapper=false （不要继承rootlogger的配置）
+
+log4j.logger.test.api.mapper是针对整个包，也可以详细到类和方法
+例如
+log4j.logger.test.api.mapper.StudentMapper.getStudent=TRACE,R
+log4j.additivity.test.api.mapper.StudentMapper.getStudent=false
+
+使用动态sql时，方法的参数必须指定param，除非参数是javabean对象，否则动态sql会找不到相应的参数
+当使用数组或列表为参数不指定param时，默认参数的名字分别为array和list
+bind 中使用_parameter获取参数时，如果有param参数则直接取名字，如果是javabean则通过get方法获取
