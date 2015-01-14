@@ -3,7 +3,15 @@
 <mapper namespace="test.mapper.mapper.StudentMapper">
 	
 	<select id="getStudent" resultType="student">
-		select * from student where id=#{id}
+		select * from student where id=#{id} and name=#{name}
 	</select>
 	
+	<select id="getStudentByName" resultType="student">
+		select * from student where name=#{name,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="addStudent" parameterType="student" >
+		insert into
+		student(`name`,`remark`,`birthday`)values(#{name,jdbcType=VARCHAR},#{remark},#{birthday})
+	</insert>
 </mapper>

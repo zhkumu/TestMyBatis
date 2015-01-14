@@ -11,7 +11,7 @@
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
+				<property name="url" value="jdbc:mysql://localhost:3306/mybatis?encoding=utf-8" />
 				<property name="username" value="root" />
 				<property name="password" value="123456" />
 			</dataSource>
@@ -19,8 +19,6 @@
 	</environments>
 
 	<mappers>
-	<!-- 	<mapper resource="test/mapper/xml/StudentMapper.xml" /> -->
-<!-- 		<mapper class="test.mapper.mapper.StudentMapper" /> -->
 		<package name="test.mapper.mapper"/>
 	</mappers>
 

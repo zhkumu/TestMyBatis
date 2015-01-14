@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="test.mapper.mapper.StudentMapper">
+<mapper namespace="test.config.mapper.StudentMapper">
+	
+	<insert id="addStudent" parameterType="student" >
+		insert into student(`name`,`remark`,`birthday`,`color`)values(#{name},#{remark},#{birthday},#{color})
+	</insert>
 	
 	<select id="getStudent" resultType="student">
 		select * from student where id=#{id}
 	</select>
-	
 </mapper>

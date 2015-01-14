@@ -41,3 +41,24 @@ log4j.additivity.test.api.mapper.StudentMapper.getStudent=false
 使用动态sql时，方法的参数必须指定param，除非参数是javabean对象，否则动态sql会找不到相应的参数
 当使用数组或列表为参数不指定param时，默认参数的名字分别为array和list
 bind 中使用_parameter获取参数时，如果有param参数则直接取名字，如果是javabean则通过get方法获取
+
+
+mybatis配置
+默认情况下枚举类型的自动映射是通过枚举的字符串与java类型映射，通过配置来修改成用数字来对应枚举的顺序
+<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="枚举java类型" />
+自定义类型映射时，可不需要指定javatype，因为mybatis会自动识别，但jdbctype则不会必须指定
+可通过typeHandler配置时指定或者在映射文件里指定<result column="color" property="color" typeHandler="MuTypeHandler"/>
+
+映射文件
+请求参数如果多于一个的话，需要指定@Param，不然只能通过
+
+
+
+
+
+
+
+
+
+
+
